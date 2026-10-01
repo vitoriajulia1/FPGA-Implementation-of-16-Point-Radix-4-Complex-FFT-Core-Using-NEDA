@@ -1,0 +1,189 @@
+C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/radix4_e.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/radix4_e.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fixed_float_types
+-- Loading package instance fixed_pkg
+-- Loading package fixed_generic_pkg
+-- Loading package MATH_REAL
+-- Loading package body fixed_generic_pkg
+-- Loading package TYPES
+-- Compiling entity radix4
+
+} {} {}} C:/Users/vitor/elec_num/projet_fft16/jalon_2/ModelSim_seq/testbench_e.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/vitor/elec_num/projet_fft16/jalon_2/ModelSim_seq/testbench_e.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fixed_float_types
+-- Loading package instance fixed_pkg
+-- Loading package fixed_generic_pkg
+-- Loading package MATH_REAL
+-- Loading package body fixed_generic_pkg
+-- Loading package TYPES
+-- Compiling entity testbench
+
+} {} {}} C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/complex_mult_twiddle_e.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/complex_mult_twiddle_e.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fixed_float_types
+-- Loading package instance fixed_pkg
+-- Loading package fixed_generic_pkg
+-- Loading package MATH_REAL
+-- Loading package body fixed_generic_pkg
+-- Loading package TYPES
+-- Compiling entity complex_mult_twiddle
+
+} {} {}} C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/calc_pot_e.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/calc_pot_e.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fixed_float_types
+-- Loading package instance fixed_pkg
+-- Loading package fixed_generic_pkg
+-- Loading package MATH_REAL
+-- Loading package body fixed_generic_pkg
+-- Loading package TYPES
+-- Compiling entity calc_pot
+
+} {} {}} C:/Users/vitor/elec_num/projet_fft16/jalon_2/ModelSim_seq/testbench_a1_00.vhd {1 {vcom -work work -2002 -explicit -stats=none {C:\Users\vitor\elec_num\projet_fft16\jalon_2\ModelSim_seq\testbench_a1_00.vhd}
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Compiling architecture schematic of testbench
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fixed_float_types
+-- Loading package instance fixed_pkg
+-- Loading package fixed_generic_pkg
+-- Loading package MATH_REAL
+-- Loading package body fixed_generic_pkg
+-- Loading package TYPES
+-- Loading entity testbench
+-- Loading entity fft16OPT
+
+} {} {}} C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/complex_mult_twiddle_a1.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/complex_mult_twiddle_a1.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Compiling architecture pipelined of complex_mult_twiddle
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fixed_float_types
+-- Loading package instance fixed_pkg
+-- Loading package fixed_generic_pkg
+-- Loading package MATH_REAL
+-- Loading package body fixed_generic_pkg
+-- Loading package TYPES
+-- Loading entity complex_mult_twiddle
+
+} {} {}} C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/calc_pot_a1.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/calc_pot_a1.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Compiling architecture a1 of calc_pot
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fixed_float_types
+-- Loading package instance fixed_pkg
+-- Loading package fixed_generic_pkg
+-- Loading package MATH_REAL
+-- Loading package body fixed_generic_pkg
+-- Loading package TYPES
+-- Loading entity calc_pot
+
+} {} {}} C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/fft16OPT_a1.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/fft16OPT_a1.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Compiling architecture a1 of fft16OPT
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fixed_float_types
+-- Loading package instance fixed_pkg
+-- Loading package fixed_generic_pkg
+-- Loading package MATH_REAL
+-- Loading package body fixed_generic_pkg
+-- Loading package TYPES
+-- Loading entity fft16OPT
+
+} {} {}} C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/types.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/types.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fixed_float_types
+-- Loading package instance fixed_pkg
+-- Loading package fixed_generic_pkg
+-- Loading package MATH_REAL
+-- Loading package body fixed_generic_pkg
+-- Compiling package TYPES
+
+} {} {}} C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/radix2_a3.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/radix2_a3.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Compiling architecture a3 of radix2
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fixed_float_types
+-- Loading package instance fixed_pkg
+-- Loading package fixed_generic_pkg
+-- Loading package MATH_REAL
+-- Loading package body fixed_generic_pkg
+-- Loading package TYPES
+-- Loading entity radix2
+
+} {} {}} C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/radix4_a1.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/radix4_a1.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Compiling architecture a2 of radix4
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fixed_float_types
+-- Loading package instance fixed_pkg
+-- Loading package fixed_generic_pkg
+-- Loading package MATH_REAL
+-- Loading package body fixed_generic_pkg
+-- Loading package TYPES
+-- Loading entity radix4
+
+} {} {}} C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/fft16OPT_e.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/fft16OPT_e.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fixed_float_types
+-- Loading package instance fixed_pkg
+-- Loading package fixed_generic_pkg
+-- Loading package MATH_REAL
+-- Loading package body fixed_generic_pkg
+-- Loading package TYPES
+-- Compiling entity fft16OPT
+
+} {} {}} C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/radix2_e.vhd {1 {vcom -work work -2002 -explicit -stats=none C:/Users/vitor/elec_num/projet_fft16/jalon_2/Quartus_seq/radix2_e.vhd
+Model Technology ModelSim - Intel FPGA Edition vcom 10.5b Compiler 2016.10 Oct  5 2016
+-- Loading package STANDARD
+-- Loading package TEXTIO
+-- Loading package std_logic_1164
+-- Loading package NUMERIC_STD
+-- Loading package fixed_float_types
+-- Loading package instance fixed_pkg
+-- Loading package fixed_generic_pkg
+-- Loading package MATH_REAL
+-- Loading package body fixed_generic_pkg
+-- Loading package TYPES
+-- Compiling entity radix2
+
+} {} {}}

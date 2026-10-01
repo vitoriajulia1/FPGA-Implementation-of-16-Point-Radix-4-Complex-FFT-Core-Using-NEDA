@@ -1,0 +1,26 @@
+architecture a1 of calc_pot is
+	signal r2_s, i2_s : sfixed(1 downto -22);
+  
+  signal sum_u      : sfixed(1 downto -22);  -- +1 bit para a soma
+  
+  
+begin
+
+
+  r2_s <= resize(Xr * Xr, r2_s'high, r2_s'low);
+  i2_s <= resize(Xi * Xi, i2_s'high, i2_s'low);
+
+  sum_u <= resize(r2_s  +  i2_s, r2_s'high, r2_s'low);
+  
+--  r2_s <= Xr * Xr;
+--  i2_s <= Xi * Xi;
+--
+--  sum_u <= r2_s  +  i2_s;
+
+
+  --Pot <= resize( sum_u*to_sfixed(16, Pot'high, Pot'low), Pot'left, Pot'right ); 
+
+  Pot <= resize( sum_u, Pot'left, Pot'right ); 
+
+
+end architecture;

@@ -1,0 +1,17 @@
+LIBRARY ieee;
+USE ieee.std_logic_1164.all;
+use ieee.numeric_std.ALL;
+--use ieee.fixed_float_types.all;
+--use ieee.fixed_pkg.all;
+use work.types.all;
+
+ENTITY radix2_sync IS
+    PORT(
+		clk    : IN  std_logic ;				
+		d2_in	   : IN  std_logic ;					-- indique si on doit diviser par 2
+        x0_in     : IN  vecteurin ;-- entree 1
+        x1_in     : IN  vecteurin;	-- entree 2
+        yp_out     : OUT vecteurin;	-- sortie somme
+		ym_out     : OUT vecteurin	-- sortie difference
+    );
+END radix2_sync;

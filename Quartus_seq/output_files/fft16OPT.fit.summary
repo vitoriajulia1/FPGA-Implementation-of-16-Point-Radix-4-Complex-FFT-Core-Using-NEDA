@@ -1,0 +1,18 @@
+Fitter Status : Successful - Thu Nov 13 16:16:06 2025
+Quartus Prime Version : 23.1std.0 Build 991 11/28/2023 SC Lite Edition
+Revision Name : fft16OPT
+Top-level Entity Name : fft16OPT_sync
+Family : MAX 10
+Device : 10M50DAF484C6GES
+Timing Models : Preliminary
+Total logic elements : 2,448 / 49,760 ( 5 % )
+    Total combinational functions : 1,979 / 49,760 ( 4 % )
+    Dedicated logic registers : 2,096 / 49,760 ( 4 % )
+Total registers : 2096
+Total pins : 302 / 360 ( 84 % )
+Total virtual pins : 0
+Total memory bits : 327 / 1,677,312 ( < 1 % )
+Embedded Multiplier 9-bit elements : 32 / 288 ( 11 % )
+Total PLLs : 0 / 4 ( 0 % )
+UFM blocks : 0 / 1 ( 0 % )
+ADC blocks : 0 / 2 ( 0 % )

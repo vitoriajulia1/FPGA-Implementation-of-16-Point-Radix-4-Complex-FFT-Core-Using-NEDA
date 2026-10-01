@@ -1,0 +1,429 @@
+architecture a1 of fft16OPT is
+-- Signaux internes 
+	component radix4 is
+		PORT(
+		 clk : IN  std_logic;     
+		 rst : IN  std_logic;
+        x0r,x0i,x1r,x1i,x2r,x2i,x3r,x3i     : IN sfixed(vecteurin'range) ;	-- entres
+	y0r,y0i,y1r,y1i,y2r,y2i,y3r,y3i	    : OUT sfixed(vecteurin'range) ;	-- sortie du radix
+	d20,d21 : IN std_logic
+    );
+	end component radix4;
+	
+	component complex_mult_twiddle is 
+		port(
+		clk : in std_logic;         
+    rst : in std_logic; 
+    k  : in integer range 0 to 9;      -- índice k (0..15)
+    Yr, Yi : in  sfixed(vecteurin'range);                    -- entrada complexa
+    Er, Ei : out sfixed(vecteurin'range)    -- saída complexa com mais bits
+		);
+	end component complex_mult_twiddle;
+	component calc_pot is
+		port(
+	 clk : in std_logic;         
+    rst : in std_logic; 
+	 --valid_in   : in  std_logic;
+    --k  : in integer range 0 to N-1;      -- índice k (0..8) si k=1...7 multiplier par deux
+    Xr, Xi : in  sfixed(vecteurin'range);                    -- entrada complexa
+    Pot : out sfixed(vecteurin'range)    -- -- |X|^2 (potência)
+	 --valid_out  : out std_logic
+  );	
+   end component calc_pot;
+
+		
+	signal E5r, E5i, E6r, E6i, E7r, E7i, E9r, E9i, E10r, E10i, E11r, E11i, E13r, E13i, E14r, E14i, E15r, E15i : vecteurin;
+	signal x_out_r       :  tab9 ; --calcule des 9 valeurs de sortie
+	signal x_out_i       :  tab9 ;	
+
+
+	signal y0r,  y0i  : vecteurin;
+	signal y1r,  y1i  : vecteurin;
+	signal y2r,  y2i  : vecteurin;
+	signal y3r,  y3i  : vecteurin;
+	signal y4r,  y4i  : vecteurin;
+	signal y5r,  y5i  : vecteurin;
+	signal y6r,  y6i  : vecteurin;
+	signal y7r,  y7i  : vecteurin;
+	signal y8r,  y8i  : vecteurin;
+	signal y9r,  y9i  : vecteurin;
+	signal y10r, y10i : vecteurin;
+	signal y11r, y11i : vecteurin;
+	signal y12r, y12i : vecteurin;
+	signal y13r, y13i : vecteurin;
+	signal y14r, y14i : vecteurin;
+	signal y15r, y15i : vecteurin;
+	
+	
+--**********************MODIFICATIONS------------------------------------------------------------------------------------
+		constant LAT_TW : integer := 3;  -- 1a+1b+2b+3 no seu twiddle
+--		constant LAT_R4B      : integer := 2;  -- radix4 (do seu código)
+--		constant LAT_R4A : integer := 2;  -- radix4 de UUT1..UUT4
+--		
+--		signal v_after_r4a : std_logic_vector(0 to LAT_R4A) := (others => '0');
+--
+		type tap_delay_arr is array (0 to LAT_TW) of sfixed(vecteurin'range);
+		
+
+		signal y0r_d, y0i_d : tap_delay_arr := (others => (others => '0'));
+		signal y1r_d, y1i_d : tap_delay_arr := (others => (others => '0'));
+		signal y2r_d, y2i_d : tap_delay_arr := (others => (others => '0'));
+		signal y3r_d, y3i_d : tap_delay_arr := (others => (others => '0'));
+		
+		signal y4r_d,  y4i_d  : tap_delay_arr := (others => (others => '0'));
+		signal y8r_d,  y8i_d  : tap_delay_arr := (others => (others => '0'));
+		signal y12r_d, y12i_d : tap_delay_arr := (others => (others => '0'));	
+		
+
+		signal z_int : tab9;
+		signal z_sig : tab9;
+	 
+begin
+	-- Appel de l’entité top-level du design à tester 
+	UUT1 : radix4
+	port map (
+	   clk => clk,
+      rst => rst,
+      x0r => x(0), x0i => ZERO_VECTEURIN,
+      x1r => x(4), x1i => ZERO_VECTEURIN,
+      x2r => x(8), x2i => ZERO_VECTEURIN,
+      x3r => x(12), x3i => ZERO_VECTEURIN,
+      y0r => y0r, y0i => y0i,
+      y1r => y4r, y1i => y4i,
+      y2r => y8r, y2i => y8i,
+      y3r => y12r, y3i => y12i,
+      d20 => '1',
+      d21 => '1'
+    ); 
+	UUT2 : radix4
+	port map (
+	   clk => clk,
+      rst => rst,
+      x0r => x(1), x0i => ZERO_VECTEURIN,
+      x1r => x(5), x1i => ZERO_VECTEURIN,
+      x2r => x(9), x2i => ZERO_VECTEURIN,
+      x3r => x(13), x3i => ZERO_VECTEURIN,
+      y0r => y1r, y0i => y1i,
+      y1r => y5r, y1i => y5i,
+      y2r => y9r, y2i => y9i,
+      y3r => y13r, y3i => y13i,
+      d20 => '1',
+      d21 => '1'
+    ); 
+	UUT3 : radix4
+	port map (
+      clk => clk,
+      rst => rst,
+		x0r => x(2), x0i => ZERO_VECTEURIN,
+      x1r => x(6), x1i => ZERO_VECTEURIN,
+      x2r => x(10), x2i => ZERO_VECTEURIN,
+      x3r => x(14), x3i => ZERO_VECTEURIN,
+      y0r => y2r, y0i => y2i,
+      y1r => y6r, y1i => y6i,
+      y2r => y10r, y2i => y10i,
+      y3r => y14r, y3i => y14i,
+      d20 => '1',
+      d21 => '1'
+    );
+	UUT4 : radix4
+	port map (
+		clk => clk,
+      rst => rst,
+      x0r => x(3), x0i => ZERO_VECTEURIN,
+      x1r => x(7), x1i => ZERO_VECTEURIN,
+      x2r => x(11), x2i => ZERO_VECTEURIN,
+      x3r => x(15), x3i => ZERO_VECTEURIN,
+      y0r => y3r, y0i => y3i,
+      y1r => y7r, y1i => y7i,
+      y2r => y11r, y2i => y11i,
+      y3r => y15r, y3i => y15i,
+      d20 => '1',
+      d21 => '1'
+    ); 
+	UUT5 : complex_mult_twiddle		
+	port map(
+	   clk => clk,
+      rst => rst,
+		k => 1,
+		Yr => y5r,
+		Yi => y5i,
+		Er => E5r,
+		Ei => E5i
+	);	
+
+	UUT6 : complex_mult_twiddle		
+		port map(
+	   clk => clk,
+      rst => rst,
+			k => 2,
+			Yr => y9r,
+			Yi => y9i,
+			Er => E9r,
+			Ei => E9i
+		);	
+
+	UUT7 : complex_mult_twiddle		
+		port map(
+		clk => clk,
+      rst => rst,
+			k => 3,
+			Yr => y13r,
+			Yi => y13i,
+			Er => E13r,
+			Ei => E13i
+		);	
+
+	UUT8 : complex_mult_twiddle		
+		port map(
+			clk => clk,
+      rst => rst,
+			k => 2,
+			Yr => y6r,
+			Yi => y6i,
+			Er => E6r,
+			Ei => E6i
+		);	
+
+	UUT9 : complex_mult_twiddle		
+		port map(
+		clk => clk,
+      rst => rst,
+			k => 4,
+			Yr => y10r,
+			Yi => y10i,
+			Er => E10r,
+			Ei => E10i
+		);	
+
+	UUT10 : complex_mult_twiddle		
+		port map(
+		clk => clk,
+      rst => rst,
+			k => 6,
+			Yr => y14r,
+			Yi => y14i,
+			Er => E14r,
+			Ei => E14i
+		);	
+
+	UUT11 : complex_mult_twiddle		
+		port map(
+		clk => clk,
+      rst => rst,
+			k => 3,
+			Yr => y7r,
+			Yi => y7i,
+			Er => E7r,
+			Ei => E7i
+		);	
+
+	UUT12 : complex_mult_twiddle		
+		port map(
+		clk => clk,
+      rst => rst,
+			k => 6,
+			Yr => y11r,
+			Yi => y11i,
+			Er => E11r,
+			Ei => E11i
+		);	
+
+	UUT13 : complex_mult_twiddle		
+		port map(
+		clk => clk,
+      rst => rst,
+			k => 9,
+			Yr => y15r,
+			Yi => y15i,
+			Er => E15r,
+			Ei => E15i
+		);
+		--**************************************************************
+
+
+		process(clk)
+		begin
+		  if rising_edge(clk) then
+			 if rst='0' then
+				y0r_d <= (others => (others=>'0'));  y0i_d <= (others => (others=>'0'));
+				y1r_d <= (others => (others=>'0'));  y1i_d <= (others => (others=>'0'));
+				y2r_d<= (others => (others=>'0'));  y2i_d<= (others => (others=>'0'));
+				y3r_d <= (others => (others=>'0'));  y3i_d <= (others => (others=>'0'));
+				
+				y4r_d <= (others => (others=>'0'));  y4i_d <= (others => (others=>'0'));
+				y8r_d <= (others => (others=>'0'));  y8i_d <= (others => (others=>'0'));
+				y12r_d<= (others => (others=>'0'));  y12i_d<= (others => (others=>'0'));
+			 else
+			   y0r_d(0) <= y0r;  y0i_d(0) <= y0i;
+				y1r_d(0) <= y1r;  y1i_d(0) <= y1i;
+				y2r_d(0) <= y2r;  y2i_d(0) <= y2i;
+				y3r_d(0) <= y3r;  y3i_d(0) <= y3i;
+				
+				y4r_d(0)  <= y4r;   y4i_d(0)  <= y4i;
+				y8r_d(0)  <= y8r;   y8i_d(0)  <= y8i;
+				y12r_d(0) <= y12r;  y12i_d(0) <= y12i;
+				for d in 1 to LAT_TW loop
+					y0r_d(d) <= y0r_d(d-1);  y0i_d(d) <= y0i_d(d-1);
+					y1r_d(d) <= y1r_d(d-1);  y1i_d(d) <= y1i_d(d-1);
+					y2r_d(d) <= y2r_d(d-1);  y2i_d(d) <= y2i_d(d-1);
+					y3r_d(d) <= y3r_d(d-1);  y3i_d(d) <= y3i_d(d-1);
+				
+				  y4r_d(d)  <= y4r_d(d-1);   y4i_d(d)  <= y4i_d(d-1);
+				  y8r_d(d)  <= y8r_d(d-1);   y8i_d(d)  <= y8i_d(d-1);
+				  y12r_d(d) <= y12r_d(d-1);  y12i_d(d) <= y12i_d(d-1);
+				end loop;
+			 end if;
+		  end if;
+		end process;
+		
+		
+		
+		--***************************************************************************
+   UUT14 : radix4
+  port map (
+	   clk => clk,
+      rst => rst,
+      x0r => y0r_d(LAT_TW), x0i => y0i_d(LAT_TW),
+      x1r => y1r_d(LAT_TW), x1i => y1i_d(LAT_TW),
+      x2r => y2r_d(LAT_TW), x2i => y2i_d(LAT_TW),
+      x3r => y3r_d(LAT_TW), x3i => y3i_d(LAT_TW),
+      y0r => x_out_r(0),  y0i => x_out_i(0),
+      y1r => x_out_r(4),  y1i => x_out_i(4),
+      y2r => x_out_r(8),  y2i => x_out_i(8),
+      y3r => open,        y3i => open,
+      d20 => '1',
+      d21 => '0'
+  );
+  UUT15 : radix4
+  port map (
+		clk => clk,
+      rst => rst,
+      x0r=>y4r_d(LAT_TW),  x0i=>y4i_d(LAT_TW),  -- << atrasados
+      x1r => E5r, x1i => E5i,
+      x2r => E6r, x2i => E6i,
+      x3r => E7r, x3i => E7i,
+      y0r => x_out_r(1),  y0i => x_out_i(1),
+      y1r => x_out_r(5),  y1i => x_out_i(5),
+      y2r => open,  y2i => open,
+      y3r => open,        y3i => open,
+      d20 => '0',
+      d21 => '0'
+  );
+  UUT16 : radix4
+  port map (
+		clk => clk,
+      rst => rst,
+      x0r=>y8r_d(LAT_TW),  x0i=>y8i_d(LAT_TW),  -- << atrasados
+      x1r => E9r, x1i => E9i,
+      x2r => E10r, x2i => E10i,
+      x3r => E11r, x3i => E11i,
+      y0r => x_out_r(2),  y0i => x_out_i(2),
+      y1r => x_out_r(6),  y1i => x_out_i(6),
+      y2r => open,  y2i => open,
+      y3r => open,        y3i => open,
+      d20 => '0',
+      d21 => '0'
+  );
+  UUT17 : radix4
+  port map (
+		clk => clk,
+      rst => rst,
+      x0r=>y12r_d(LAT_TW), x0i=>y12i_d(LAT_TW), -- << atrasados
+      x1r => E13r, x1i => E13i,
+      x2r => E14r, x2i => E14i,
+      x3r => E15r, x3i => E15i,
+      y0r => x_out_r(3),  y0i => x_out_i(3),
+      y1r => x_out_r(7),  y1i => x_out_i(7),
+      y2r => open,  y2i => open,
+      y3r => open,        y3i => open,
+      d20 => '0',
+      d21 => '0'
+  );
+--  calc_Z0 : calc_pot 
+--	port map(
+--		 clk => clk,
+--       rst => rst,
+--		 Xr => x_out_r(0),
+--		 Xi => x_out_i(0),
+--		 Pot => z(0)
+--		 ); 
+--   calc_Z1 : calc_pot 
+--	port map(
+--		 clk => clk,
+--       rst => rst,
+--		 Xr => x_out_r(1),
+--		 Xi => x_out_i(1),
+--		 Pot => z(1)
+--		 ); 
+--	calc_Z2 : calc_pot 
+--	port map(
+--		 clk => clk,
+--       rst => rst,
+--		 Xr => x_out_r(2),
+--		 Xi => x_out_i(2),
+--		 Pot => z(2)
+--		 );
+--	calc_Z3 : calc_pot 
+--	port map(
+--		 clk => clk,
+--       rst => rst,
+--		 Xr => x_out_r(3),
+--		 Xi => x_out_i(3),
+--		 Pot => z(3)
+--		 );
+--	calc_Z4 : calc_pot 
+--	port map(
+--		 clk => clk,
+--       rst => rst,
+--		 Xr => x_out_r(4),
+--		 Xi => x_out_i(4),
+--		 Pot => z(4)
+--		 );
+--	calc_Z5 : calc_pot 
+--	port map(
+--		 clk => clk,
+--       rst => rst,
+--		 Xr => x_out_r(5),
+--		 Xi => x_out_i(5),
+--		 Pot => z(5)
+--		 );
+--	calc_Z6 : calc_pot 
+--	port map(
+--		 clk => clk,
+--       rst => rst,
+--		 Xr => x_out_r(6),
+--		 Xi => x_out_i(6),
+--		 Pot => z(6)
+--		 );
+--	calc_Z7 : calc_pot 
+--	port map(
+--		 clk => clk,
+--       rst => rst,
+--		 Xr => x_out_r(7),
+--		 Xi => x_out_i(7),
+--		 Pot => z(7)
+--		 );
+--	calc_Z8 : calc_pot 
+--	port map(
+--		 clk => clk,
+--       rst => rst,
+--		 Xr => x_out_r(8),
+--		 Xi => x_out_i(8),
+--		 Pot => z(8)
+--		 );
+  
+	gen_pot : for i in 0 to 8 generate
+	begin
+	  calc_Z : calc_pot
+		 port map(
+			clk       => clk,
+			rst       => rst,
+			Xr        => x_out_r(i),
+			Xi        => x_out_i(i),
+			Pot       => z_int(i)
+		 );
+	end generate;
+	z <= z_int;
+	 
+ 
+end architecture a1;

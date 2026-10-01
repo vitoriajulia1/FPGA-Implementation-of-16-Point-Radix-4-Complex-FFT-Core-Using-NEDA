@@ -1,0 +1,27 @@
+architecture a1 of radix2_sync is
+
+signal d2_reg : std_logic; 
+signal x0_reg, x1_reg, yp_reg, ym_reg, ym, yp : vecteurin;
+
+begin
+
+
+	process(clk)
+	begin
+		if rising_edge(clk) then
+			d2_reg <= d2_in;
+			x0_reg <= x0_in;
+			x1_reg <= x1_in;
+			yp_reg <= yp;
+			ym_reg <= ym;		
+		end if;
+	end process; 
+	
+	UUT : entity work.radix2(a1)  port map(d2_reg,x0_reg,x1_reg,yp,ym);   
+	
+	yp_out <= yp_reg;
+	ym_out <= ym_reg;
+	
+	
+end architecture a1 ;
+

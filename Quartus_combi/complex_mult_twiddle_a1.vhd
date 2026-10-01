@@ -1,0 +1,41 @@
+architecture a1 of complex_mult_twiddle is
+  type coef_array is array (1 to 9) of sfixed(vecteurin'range);
+
+  
+	constant COS_TAB : coef_array := (
+	  to_sfixed( 0.9239, 0, -11),  -- k=0 -> cos(pi/8)
+	  to_sfixed( 0.7071, 0, -11),  -- cos(2pi/8)
+	  to_sfixed( 0.3827, 0, -11),  -- cos(3pi/8)
+	  to_sfixed( 0.0,    0, -11),  -- cos(4pi/8)
+	  to_sfixed(-0.3827, 0, -11),
+	  to_sfixed(-0.7071, 0, -11),
+	  to_sfixed(-0.9239, 0, -11),
+	  to_sfixed(-1.0000, 0, -11),
+	  to_sfixed(-0.9239, 0, -11)
+	);
+
+	constant SIN_TAB : coef_array := (
+	  to_sfixed( 0.3827, 0, -11),  -- sin(pi/8)
+	  to_sfixed( 0.7071, 0, -11),  -- sin(2pi/8)
+	  to_sfixed( 0.9239, 0, -11),  -- sin(3pi/8)
+	  to_sfixed( 0.9999, 0, -11),  -- sin(4pi/8)
+	  to_sfixed( 0.9239, 0, -11),
+	  to_sfixed( 0.7071, 0, -11),
+	  to_sfixed( 0.3827, 0, -11),
+	  to_sfixed( 0.0,    0, -11),
+	  to_sfixed(-0.3827, 0, -11)
+	);
+
+
+
+	signal cos_k, sin_k : sfixed(vecteurin'range);               -- coeficientes do twiddle
+
+begin
+  cos_k <= COS_TAB(k);
+  sin_k <= SIN_TAB(k);
+
+	Er <= resize( Yr * cos_k + Yi * sin_k, Er'high, Er'low );
+	Ei <= resize( Yi * cos_k - Yr * sin_k, Ei'high, Ei'low );
+
+
+end architecture;
